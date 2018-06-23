@@ -10,9 +10,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.Toast
 import android.content.Intent
-
-
-
+import android.net.Uri
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +21,17 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+          //  Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            //        .setAction("Action", null).show()
+
+            val intent = Intent()
+            intent.action = Intent.ACTION_VIEW
+            val data = getString(R.string.google_mtv_coord_zoom12)
+            intent.data = Uri.parse(data)
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            }
+
         }
     }
 
@@ -38,10 +45,27 @@ class MainActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
+        when (item.itemId) {
+            R.id.action_order -> {
+                displayToast(getString(R.string.action_order_message))
+                return true
+            }
+            R.id.action_status -> {
+                displayToast(getString(R.string.action_status_message))
+                return true
+            }
+            R.id.action_favorites -> {
+                displayToast(getString(R.string.action_favorites_message))
+                return true
+            }
+            R.id.action_contact -> {
+                displayToast(getString(R.string.action_contact_message))
+                return true
+            }
+        }// Do nothing
+
+        return super.onOptionsItemSelected(item);
+
     }
 
     /**
